@@ -1,0 +1,47 @@
+<?php	
+function get_blog(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `exeptions` WHERE exception = '$url'");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				//nesting starts here
+				$id = $row['type_id'];
+				$blog = "blog_";
+				$table = $blog.$id;
+				$result2=mysql_query("SELECT * FROM `$table` ORDER BY id DESC");
+				$numrows2 = mysql_num_rows($result2);
+				if ($numrows2 >= 1) {
+					$x=0;
+					while($row2=mysql_fetch_array($result2) ){
+						$title = $row2['title'];
+						$content = $row2['content'];
+						$author = $row2['author'];
+						$date = $row2['date'];
+						echo("<table>");
+						echo("<tr><td><h3>$title</h3><br /></td></tr>");
+						echo("<tr><td>$content<br /><br /></tr></td>");
+						echo("<tr><td>Post by: <a href='http://hackfodder.co.uk/sly_cms/users/$author'>$author</a></td>");
+						echo("<td>Posted On: $date</tr></td>");
+						echo("</table>");
+						echo("<hr />");
+						$x++;	
+					}
+				}
+				if ($numrows2 < 1) {
+					$content = "No Content found for this address.";
+					return $content;
+				}
+				//nesting finished
+				$i++;
+			}
+		}
+
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+
+	}
+?>

@@ -1,0 +1,27 @@
+<?
+	include ('../config/connection.htm');
+
+	if(!mysql_connect($host, $username, $password)){
+		die("Could not connect");
+	}
+	mysql_select_db($db_name);
+
+$path = "./";
+$dir_handle = opendir($path) or die("Unable to open directory $path");
+
+while ($file = readdir($dir_handle)) {
+$filetyp = substr($file, -3);
+
+	if ($filetyp == 'gif' OR $filetyp == 'jpg') {
+		$handle = fopen($path . "/" . $file,'r');
+		$file_content =	fread($handle,filesize($path . "/" . $file));
+		fclose($handle);
+		$encoded = chunk_split(base64_encode($file_content));
+		$sql = "INSERT INTO images SET sixfourdata='$encoded'";
+		mysql_query($sql);
+	}
+}
+closedir($dir_handle);
+echo("complete");
+	
+?>

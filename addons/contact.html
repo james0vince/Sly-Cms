@@ -1,0 +1,19 @@
+<?php
+	function show_global_contact(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `global` WHERE `id` = 1");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$contact = $row['contact'];
+				return $contact;
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}
+?>

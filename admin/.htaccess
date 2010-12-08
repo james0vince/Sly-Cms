@@ -1,0 +1,7 @@
+addtype application/x-httpd-php .en-GB .en .html .php .secure-html  .htm .webservices .jp .it
+
+DirectoryIndex index.html
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L] 

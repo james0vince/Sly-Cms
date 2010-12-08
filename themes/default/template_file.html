@@ -1,0 +1,148 @@
+<?php $domain = $_SERVER['SERVER_NAME']; ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" href="http://<?php echo($domain) ?>/content/default/files/style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="http://<?php echo($domain) ?>/content/default/files/loginslider.css" type="text/css" />
+<script type="text/javascript" src="http://<?php echo($domain) ?>/content/default/files/scripts/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="http://<?php echo($domain) ?>/content/default/files/scripts/jquery.slidepanel.setup.js"></script>
+<script type="text/javascript" src="http://<?php echo($domain) ?>/content/default/files/scripts/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="http://<?php echo($domain) ?>/content/default/files/scripts/jquery.tabs.setup.js"></script>
+<title><?php echo($global_title); ?></title>
+</head><body>
+<div class="wrapper col0">
+  <div id="topbar">
+    <div id="slidepanel">
+      <div class="topbox">
+        <h2>Control Panel Login for Sly_Cms</h2>
+        <p>Sly_Cms is a simple, secure and stylish content management system developer by James Vince over at london-it-training.com.</p>
+        <p class="readmore"><a target='_blank' href="http://sly-cms.net/">Continue Reading &raquo;</a></p>
+      </div>
+      <div class="topbox">
+        <!--<h2>Teachers Login Here</h2>
+        <form action="#" method="post">
+          <fieldset>
+          <legend>Teachers Login Form</legend>
+          <label for="teachername">Username:
+          <input type="text" name="teachername" id="teachername" value="" />
+          </label>
+          <label for="teacherpass">Password:
+          <input type="password" name="teacherpass" id="teacherpass" value="" />
+          </label>
+          <label for="teacherremember">
+          <input class="checkbox" type="checkbox" name="teacherremember" id="teacherremember" checked="checked" />
+          Remember me</label>
+          <p>
+            <input type="submit" name="teacherlogin" id="teacherlogin" value="Login" />
+            &nbsp;
+            <input type="reset" name="teacherreset" id="teacherreset" value="Reset" />
+          </p>
+          </fieldset>
+        </form>Nullamlacus dui ipsum-->
+      </div>
+      <div class="topbox last">
+        <h2>Login Here</h2>
+        <form action="http://<?php echo($global_host)?>/admin/login.php" method="post" name="logForm">
+          <fieldset>
+          <legend>Login Form</legend>
+          <label for="usr_email">Username:
+          <input type="text" name="usr_email" id="pupilname" value="" />
+          </label>
+          <label for="password">Password:
+          <input type="password" name="pwd" id="pupilpass" value="" />
+          </label>
+          <label for="pupilremember">
+          <input class="checkbox" type="checkbox" name="remember" id="pupilremember" checked="checked" />
+          Remember me</label>
+          <p>
+            <input type="submit" name="doLogin" id="pupillogin" value="Login" />
+            &nbsp;
+            <input type="reset" name="pupilreset" id="pupilreset" value="Reset" />
+          </p>
+          </fieldset>
+        </form>
+      </div>
+      <br class="clear" />
+    </div>
+    <div id="loginpanel">
+      <ul>
+        <li class="right" id="toggle"><a id="slideit" href="#slidepanel">Administration</a><a id="closeit" style="display: none;" href="#slidepanel">Close Panel</a></li>
+      </ul>
+    </div>
+    <br class="clear" />
+  </div>
+</div>
+<div class="cnt">
+<div class="header">
+<div class="head1">
+<h1><a href="<?php echo("http://$global_host");?>"><?php echo($global_header); ?></a></h1>
+<div class="description"></div>
+</div>
+<div class="head2">
+<!--<div style="margin-left:60px;">
+	<h2>about</h2>
+	<p><?php echo($domain) ?> is a site dedicated to brining you news of the latest and greatest mods.</p>	
+</div>-->
+</div>
+</div>
+<div class="main">
+<div class="content">
+<div class="post">
+<div class="posttitle">
+
+<?php
+	if($url == "$localecontact"){
+		echo($global_contact);	
+	}
+	if($mode == "normal"){
+		get_local_content();
+	}
+	if($mode == "blog"){
+		get_blog();
+	}
+	if($mode == "gallery"){
+		get_gallery();
+	}
+	if($mode == "shop"){
+		get_shop();
+	}         
+?>
+</div>
+</div>
+</div>
+<div class="sidebar">
+<div class="bloque1">
+<h3>Languages</h3>
+<div style="margin-left: 10px;">
+	<ul>
+		<?php show_global_languages(); ?>
+	</ul>
+</div>
+<h3>Menu</h3>
+<div style="margin-left: 10px;">
+	<ul>
+		<?php show_global_menu(); ?>
+	</ul>
+</div>
+<!--<h3>categories</h3>
+<ul>
+<li><a href="#">Aenean</a> (63)</li>
+<li><a href="#">Curcus</a> (79)</li>
+<li><a href="#">Feugiat</a> (86)</li>
+<li><a href="#">Luctus</a> (19)</li>
+<li><a href="#">Hendrerit</a> (80)</li>
+</ul>-->
+
+<?php echo($local_side_content); ?>
+</div>
+</div>
+</div>
+<div class="footer">
+<p class="foot"><?php echo($global_footer); ?></p>
+</div>
+</div>
+</body>
+</html>

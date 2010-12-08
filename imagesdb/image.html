@@ -1,0 +1,25 @@
+<?
+	include ('../config/connection.htm');
+	if(!mysql_connect($host, $username, $password)){
+		die("Could not connect");
+	}
+	mysql_select_db($db_name);
+
+$img = $_REQUEST["img"]; 
+
+
+	$result = mysql_query("SELECT * FROM images WHERE imgid='$img' ");
+	if (!$result) {
+		echo("<b>Error performing query: " . mysql_error() . "</b>");
+		exit();
+	}
+	while ($row = mysql_fetch_array($result)) {
+		$imgid = $row["imgid"];
+		$encodeddata = $row["sixfourdata"];
+	}
+
+	
+	echo base64_decode($encodeddata); 
+
+
+?>

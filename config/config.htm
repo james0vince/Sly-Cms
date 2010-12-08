@@ -1,0 +1,109 @@
+<?php
+	$locale = "/.en-GB/"; //the name of the language file with forward slashes before and after
+	$db_con_file = "connection.htm";
+	include($db_con_file);
+
+	function set_title_content(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `global` WHERE `id` = 1");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$title = $row['title'];
+				return $title;
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}
+	function set_header_content(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `global` WHERE `id` = 1");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$header = $row['header'];
+				return $header;
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}
+
+	function check_mode(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `exeptions` WHERE exception = '$url'");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$this_mode = $row['mode'];
+                                return $this_mode;
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}
+	function get_template(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `global` WHERE `id` = 1");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$template = $row['template'];
+				return $template;
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}
+	
+
+	function contact_form_submit($name_in, $email_in, $message_in, $ip_in, $date_in){
+		 mysql_query("INSERT INTO `contact` (`id` , `name` , `email` , `message` , `ip` , `date`) VALUES (NULL , '$name_in', '$email_in', '$message_in', '$ip_in', '$date_in');");
+	}
+        $mode = check_mode();
+        $url = $_SERVER['REQUEST_URI'];
+	$contact = "contact";
+	$localecontact = $locale.$contact;
+	$addons = "./addons/addon_config.html";
+	include($addons);
+	$global_title = set_title_content();
+	$global_header = set_header_content();
+	$local_side_content = set_local_side_content();
+	$global_footer = set_global_footer();
+        $global_contact = show_global_contact();
+	$global_host = $_SERVER['HTTP_HOST'];
+
+        $dir = get_template();
+	$template = "./themes/$dir/template_file.html";
+	include($template);
+	$url = $_SERVER['REQUEST_URI'];
+	
+	$thankyou = "thankyou";
+	$localethankyou = $locale.$thankyou;
+	if($url == "$localethankyou"){
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$message = $_POST['message'];
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$date = date("m.d.y");
+		contact_form_submit($name, $email, $message, $ip, $date);
+	}
+
+?>

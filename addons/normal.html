@@ -1,0 +1,23 @@
+<?php	
+
+function get_local_content(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `exeptions` WHERE exception = '$url'");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$title = $row['title'];
+				$content = $row['main_content'];
+				echo("<h3>$title</h3><br />");
+				echo("$content");
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}
+
+?>

@@ -1,0 +1,18 @@
+		<!-- <menu> -->	
+			<?php $page = $_SERVER["SCRIPT_NAME"];?>
+			<?php if (isset($_SESSION['user_id'])) { ?>	
+				<li><a href="home.html" <?php if($page == "/sly-admin/home.html") {echo("style='background:#fff; border-top: solid 1px #D7DEEA; border-left: solid 1px #D7DEEA; border-right: solid 1px #D7DEEA; color: #333; font-weight:bold;  '"); } ?> >Dashboard</a></li>
+				<?php if (checkAdmin()) { ?>
+					<li><a href="change-password.html"  <?php if($page == "/sly-admin/change-password.html") {echo("style='background:#fff; border-top: solid 1px #D7DEEA; border-left: solid 1px #D7DEEA; border-right: solid 1px #D7DEEA; color: #333; font-weight:bold; '"); } ?> >Change Password</a></li>
+				<?php } ?>
+				<li><a href="globals.html"  <?php if($page == "/sly-admin/globals.html") {echo("style='background:#fff; border-top: solid 1px #D7DEEA; border-left: solid 1px #D7DEEA; border-right: solid 1px #D7DEEA; color: #333; font-weight:bold; '"); } ?> >Edit Global Settings</a></li>
+				<li><a href="insert.html"  <?php if($page == "/sly-admin/insert.html") {echo("style='background:#fff; border-top: solid 1px #D7DEEA; border-left: solid 1px #D7DEEA; border-right: solid 1px #D7DEEA; color: #333; font-weight:bold; '"); } ?> >Add pages</a></li>
+				<li><a href="manage-files.html"  <?php if($page == "/sly-admin/manage-files.html") {echo("style='background:#fff; border-top: solid 1px #D7DEEA; border-left: solid 1px #D7DEEA; border-right: solid 1px #D7DEEA; color: #333; font-weight:bold; '"); } ?>>Files</a></li>
+				
+			
+				<?php if (checkAdmin()) {?>
+					<li><a href="admin.html"  <?php if($page == "/sly-admin/admin.html") {echo("style='background:#fff; border-top: solid 1px #D7DEEA; border-left: solid 1px #D7DEEA; border-right: solid 1px #D7DEEA; color: #333; font-weight:bold; '"); } ?> >Admin</a></li>
+				<?php } ?>
+				<li><a href="logout.html">Logout</a></li>
+			<?php }?>
+		<!-- </menu> -->

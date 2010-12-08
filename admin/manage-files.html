@@ -1,0 +1,174 @@
+<?php 
+include 'dbc.html';
+page_protect();
+
+$err = array();
+$msg = array();
+
+
+ 
+$rs_settings = mysql_query("select * from users where id='$_SESSION[user_id]'"); 
+?>
+
+<?php $uname101 = $_SESSION['user_name']; ?>
+<?php
+   function checkeditor(){
+       $result=mysql_query("SELECT * FROM `global` WHERE id = '1'");
+       $numrows = mysql_num_rows($result);
+       if ($numrows >= 1) {
+             $i=0;
+             while($row=mysql_fetch_array($result) ){
+                  $admin_editor = $row['admin_editor'];
+                  return($admin_editor);
+                  $i++;
+             }
+       }
+       if ($numrows < 1) {
+            $content = "Error Database Failure!";
+            echo($content);
+       }
+   }
+   if(checkeditor() == "markitup"){
+      include('includes/plugins/markitup.html');
+   }
+   if(checkeditor() == "tinymce"){
+      include('includes/plugins/tinymce.html');
+   }
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<script language="JavaScript" type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/jquery.validate.js"></script>
+  <script>
+  $(document).ready(function(){
+    $("#myform").validate();
+	 $("#pform").validate();
+  });
+  </script>
+<link href="styles.css" rel="stylesheet" type="text/css">
+<title>Project </title>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<div id="back-span">
+	&nbsp;
+</div>
+<div id="container">
+  <div id="header">
+    <h1><a href="test" style="color:#fff;">Sly Cms Admin Control</a></h1>
+  <div id="navigation">
+    <ul>
+    <ul>
+		<?php include('menu.html'); ?>
+    </ul>
+  </div>
+  </div>
+  <div id="wrapper">
+    <div id="content">
+        <div id="subNavigation">
+    		<ul>
+			<li><a href="test">New milestone</a></li> |
+			<li><a href="test">New Task</a></li> |
+      		 	<li><a href="test">Sheduale Meeting</a></li> |
+			<li><a href="test">Upload new file</a></li> |
+			<li><a href="test">New user</a></li> |
+			<li><a href="test">Files</a></li> |
+		</ul>
+  </div>
+	<div id="main-body">
+		<div id="main-content-main">
+			
+			<?php 
+				include('./edit_types/types_config.html');
+			?>
+			<?php	
+				if(!empty($err))  {
+				echo "<div class=\"msg\">";
+				foreach ($err as $e) {
+					echo "* Error - $e <br>";
+				}
+				echo "</div>";	
+				}
+				if(!empty($msg))  {
+				echo "<div class=\"msg\">" . $msg[0] . "</div>";
+
+			}
+			?>
+				<?php
+		if($_GET['action'] == "change_editor"){
+			if($_POST['editor'] == "Code view" || $_POST['editor'] == "Design View"){
+				echo("Editor Updated.");
+				$new_editor = $_POST['editor'];
+				if($new_editor == "Code view"){
+					$new_editor = "markitup";
+				}
+				if($new_editor == "Design View"){
+					$new_editor = "tinymce";
+				}
+				mysql_query("UPDATE `global` SET `admin_editor` = '$new_editor' WHERE `global`.`id` =1;");
+				$back = $_SERVER['HTTP_REFERER'];
+				echo("<meta http-equiv='refresh' content='0;url=$back' />");
+			}
+		}
+	?>
+
+      <h3 class="titlehdr">Manage Files</h3>
+      
+	  <p>This addon is under construction</p>
+	  
+	  
+		</div>
+	</div>
+	<div id="right-sidbar">
+		<?php
+			if(!isset($_GET['edit'])){
+				include('right_boxes.html');
+			}
+		?>
+	</div>
+    </div>
+  </div>
+  <div id="sidebar">
+     <?php include('mini_pro.html'); ?>
+    <ul>
+		<?php include('left_links.html'); ?>
+
+    </ul>
+	
+	<div class='left-boxes'>
+			<h2>Informtion</h2>
+				<ul>
+					<li style="color: #666; font-weight:bold;">Name:</li>
+					<li><?php echo($uname101);?></li><br />
+					<li style="color: #666; font-weight:bold;">User Level:</li>
+					<?php if (checkAdmin()) { echo("<li>Admin</li><br />"); } else { echo("<li>Demo</li><br />");  } ?>
+					<li style="color: #666; font-weight:bold;">Last Update:</li>
+					<li>Never</li><br />
+					<li style="color: #666; font-weight:bold;">Last Upload:</li>
+					<li>Never</li><br />
+				</ul>
+			
+		</div>
+   <?php include('left_boxes.html'); ?>
+  </div>
+  <div id="footer">
+
+  </div>
+</div>
+<div id="back-span2">
+	Copyright &copy;
+</div>
+</body>
+</html>
+
+     <!-- <li><a href="test" style="background:#666">Dashboard</a></li>
+      <li><a href="test">Milestone</a></li>
+      <li><a href="test">Issues</a></li>
+      <li><a href="test">Calender</a></li>
+      <li><a href="test">Meetings</a></li>
+      <li><a href="test">Files</a></li>
+      <li><a href="test">Timeshets</a></li>
+      <li><a href="test">Reports</a></li>
+      <li><a href="test">Users</a></li>-->

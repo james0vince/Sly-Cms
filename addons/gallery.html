@@ -1,0 +1,52 @@
+<?php
+	function get_gallery(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `exeptions` WHERE exception = '$url'");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				//nesting starts here
+				$url_choped = substr($url, 8);
+				$table = "gallery_$url_choped";
+				$result2=mysql_query("SELECT * FROM `$table`");
+				$numrows2 = mysql_num_rows($result2);
+				if ($numrows2 >= 1) {
+					$x=0;
+					while($row2=mysql_fetch_array($result2) ){
+						$title = $row2['title'];
+						$src = $row2['src'];
+						$alt = $row2['alt'];
+						$height = $row2['height'];
+						$width = $row2['width'];
+						$link = $row2['link'];
+						$caption = $row2['caption'];
+						$author = $row2['author'];
+						$date = $row2['date'];
+						echo("<table border='0'>");
+						echo("<tr><td colspan='2'><h3>$caption</h3><br /></td></tr>");
+						echo("<tr><td colspan='2'><a target='_blank' href='$link'><img src='$src' title='$title' alt='$alt' height='$height' width='$width' /></a><br /><br /></tr></td>");
+						echo("<tr><td>Uploade by: $author</td>");
+						echo("<td>Uploaded On: $date</td></tr>");
+						echo("</table>");
+						echo("<hr />");
+						echo("<br /><br />");
+						$x++;	
+					}
+				}
+				if ($numrows2 < 1) {
+					$content = "No Content found for this address.";
+					return $content;
+				}
+				//nesting finished
+				$i++;
+			}
+		}
+	}
+
+
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+?>

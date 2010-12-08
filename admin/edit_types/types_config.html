@@ -1,0 +1,17 @@
+<?php
+		$result=mysql_query("SELECT * FROM `modules`");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$name = $row['name'];
+				
+				$start = "edit_types/";
+				$ext = ".html";
+				$file = $start.$name.$ext;
+				include($file);
+				$i++;
+			}
+		}
+
+?>

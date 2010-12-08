@@ -1,0 +1,39 @@
+* {margin: 0px;padding: 0px;}body {background: #2c2c2cfff;color: #2c2c2c;font-size: 11px;font-family: "Lucida Grande", "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;}
+img {border: 0px;}
+.cnt {width: 760px;background-color: #ffffff;margin: 20px auto 30px;}
+.header{background-color: #ffffff;width: 700px;height: 143px;float: left;border-bottom: 1px #2c2c2c dashed;}
+.head1 {width: 425px;padding: 40px 15px 0 0;text-align: left;float: left;}
+.header h1 a {color: #9b0e0e;text-decoration: none;}
+.header h1 a:hover {text-decoration: underline;}
+.header h1 {color: #2c2c2c;font-family: Arial, Helvetica, sans-serif;font-size: 36px;font-weight: normal;letter-spacing: -1px;margin-bottom: 0px;}
+.description {color: #2c2c2c;font-size: 12px;margin-left: 140px;}
+.head2 {width: 260px;float: left;}
+.head2 p {color: #2c2c2c;padding: 0 15px;font-size: 12px;line-height: 16px;}
+.head2 h2 {color: #2c2c2c;font-family: Arial, Helvetica, sans-serif;font-size: 19px;font-weight: normal;letter-spacing: -1px;margin-bottom: 5px;padding: 15px 0 0 16px;text-transform: lowercase;margin-top: 30px;}
+.main {width: 760px;}
+.content {padding: 20px 0 0 15px;float: left;width: 464px;margin-right: 17px;}
+.content a {text-decoration: underline;color: #9b0e0e;}
+.content a:hover {text-decoration: none;color: #9b0e0e;}
+.post {margin-bottom:30px;} .posttitle {margin-bottom: 15px;}
+.post h2 {color: #00005c;font-size: 26px;font-weight: normal;}h2.pagetitle {color: #555;font-size: 22px;font-weight: normal;letter-spacing: -1px;margin-bottom: 15px;}
+.post h2 a {color: #00005c;text-decoration:none;}
+.post h2 a:hover {text-decoration:underline;color: #00005c;}
+.post small {color: gray;display: block;margin-bottom: 15px;}
+.post p {font-size: 14px;margin-bottom: 15px;line-height:21px;}
+.sidebar {font-size: 12px;float: left;width: 254px;margin-left: 3px;padding: 10px 6px 0 0;line-height: 14px;border-left: 1px dashed gray;}
+.bloque1 {margin-bottom: 10px;}
+.bloque1 {background: #ffffff;}
+.bloque1 h3 {color: #2c2c2c;}
+.bloque1 h3, .bloque2 h3 {font-size: 19px;font-family: Arial, Helvetica, sans-serif;font-weight: normal;letter-spacing: -1px;margin-bottom:10px;padding: 20px 0 5px 16px;text-transform: lowercase;}
+.sidebar ul {list-style-type: square;padding-left: 30px;}
+.sidebar p {line-height: 16px;}
+.sidebar ul li {margin-bottom: 5px;}
+.sidebar ul span {color: #000;}
+.sidebar ul a {color: #9b0e0e;text-decoration: underline;}
+.bloque1 p a {color: #9b0e0e;}
+.bloque1 ul a:hover, .bloque1 p a:hover {background-color: #9b0e0e;color: #ffffff;border: 0px;}
+.bloque1 ul {color: #2c2c2c;padding-bottom: 12px;}
+.footer {background-color: #ffffff;text-align: center;width: 670px;height: 120px;padding: 0px 15px 0;color: #2c2c2c;font-size: 11px;display:block;float: left;border-top: 1px #2c2c2c dashed;}
+p.foot {padding-top: 25px;}
+.footer a {color: #9b0e0e;}
+.footer a:hover {background-color: #9b0e0e;color: #ffffff;text-decoration:none;}

@@ -1,0 +1,17 @@
+<html>
+<body>
+<?php
+$i = 1;
+echo("<table border='0'>");
+while ($i <= 10) {
+	if($i % 6 == 0){
+		echo("</tr><tr>");
+	}
+	echo("<td><a href='veiw_full.html?img=$i'><img height='100px' width='100px' src='image.html?img=$i' border='0'><br /></a></td>");
+	$i++;
+}
+echo("</tr></table>");
+?>
+</body>
+</html>
+

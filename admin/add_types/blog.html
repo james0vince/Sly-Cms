@@ -1,0 +1,338 @@
+<?php
+if($_GET['type'] == "blog"){
+	function get_type_id(){
+              	$exception = $_GET['exception'];
+               	$result=mysql_query("SELECT * FROM `exeptions` WHERE `exception` = '$exception'");
+                $numrows = mysql_num_rows($result);
+                if ($numrows >= 1) {
+                       	$i=0;
+                       	while($row=mysql_fetch_array($result) ){
+                       		$type_id = $row['type_id'];
+         			return($type_id);
+              			$i++;
+                        }
+		}
+		if ($numrows < 1) {
+			$content = "Error Database Failure!";
+			echo($content);
+		}
+	}
+	$type_id = get_type_id();
+	$type = "blog_";
+	$table = $type.$type_id;
+	
+	echo("
+		Choose Veiw <br /><form action='myaccount.html?action=change_editor' method='POST'>
+		<select name='editor'>
+			<option>Code view</option>
+			<option>Design View</option>		
+		</select>
+		<input type='submit' value='Choose' />
+		</form>
+	");
+	echo("<form action='update.html?update=blog&id=$id' method='POST'> Post Title<br /><input style='width:500px; height:30px; font-size:18px;' type='text' name='title' value='$title' /><br /><br />");
+							echo("Post Content: <textarea id='markItUp$x' name='content' cols='80' rows='20'>$content</textarea><br /><br />");
+							echo("Author: <br /><input style='width:500px; height:30px; font-size:18px;' type='text' name='author' value='$author' /><br /><br />");
+							echo("Last Updated: <br /><input READONLY style='width:500px; height:30px; font-size:18px;' type='text' name='date' value='$date' /><br /><br />");
+		if(checkeditor() == "markitup"){
+                if(isset($_GET['exception'])){
+                    $exception = $_GET['exception'];
+					$result=mysql_query("SELECT * FROM `$table` ORDER BY id DESC LIMIT 5");
+                    $numrows = mysql_num_rows($result);
+                    if ($numrows >= 1) {
+                        $i=0;
+						$x=1;
+                        while($row=mysql_fetch_array($result) ){
+							$id = $row['id'];
+							$title = $row['title'];
+							$content = $row['content'];
+							$author  = $row['author'];
+							$date = date("m/d/y"); 
+							echo("<form action='update.html?update=blog&id=$id' method='POST'> Post Title<br /><input style='width:500px; height:30px; font-size:18px;' type='text' name='title' value='$title' /><br /><br />");
+							echo("Post Content: <textarea id='markItUp$x' name='content' cols='80' rows='20'>$content</textarea><br /><br />");
+							echo("Author: <br /><input style='width:500px; height:30px; font-size:18px;' type='text' name='author' value='$author' /><br /><br />");
+							echo("Last Updated: <br /><input READONLY style='width:500px; height:30px; font-size:18px;' type='text' name='date' value='$date' /><br /><br />");
+					        if (checkAdmin()) {
+								echo("
+					               	<input type='submit' name='save' value='Submit' />
+					                <input type='reset' name='reset' value='Reset' />
+				                    </form>
+								");
+							}
+                            else{
+								echo("The Demo user is unable to modify content.");
+							}	
+							echo("</form><br /><br /><br />");						
+							$x++;
+							$i++;
+						}
+					}
+					if ($numrows < 1) {
+						$content = "Error Database Failure!";
+						echo($content);
+					}
+				}
+				echo("
+					<br /> <h3 class='titlehdr'>Whole page Settings</h3>
+					Page url (for example yoursite.com/.en-GB/ then the url is meetings/office)<br />
+					<input type='text' name='exception'  value='");
+                    if(isset($_GET['exception'])){
+                        $exception = $_GET['exception'];
+                        $result=mysql_query("SELECT * FROM `exeptions` WHERE `exception` = '$exception'");
+                        $numrows = mysql_num_rows($result);
+                        if ($numrows >= 1) {
+                            $i=0;
+                            while($row=mysql_fetch_array($result) ){
+                            	$exception = $row['exception'];
+                                echo($exception);
+                                $i++;
+                            }
+                        }
+                        if ($numrows < 1) {
+                            $content = "Error Database Failure!";
+                            echo($content);
+                        }
+                    }
+                                        
+                    echo("' /><br /><br />
+					Is page in the Menu?<br />");
+                    if(isset($_GET['exception'])){
+                        $exception = $_GET['exception'];
+                        $result=mysql_query("SELECT * FROM `exeptions` WHERE `exception` = '$exception'");
+                        $numrows = mysql_num_rows($result);
+                        if ($numrows >= 1) {
+                            $i=0;
+                            while($row=mysql_fetch_array($result) ){
+								$menu_item  = $row['menu_item'];
+                                if($menu_item == "yes"){
+                                     echo("
+                                        <select name='menu_item'>
+											<option>yes</option>
+											<option>no</option>
+                                        </select><br /><br />
+                                    ");
+                                }
+                                if($menu_item == "no"){
+                                     echo("
+                                        <select name='menu_item'>
+											<option>no</option>
+	                                        <option>yes</option>
+                                        </select><br /><br />
+                                    ");
+                                }
+                                $i++;
+                            }
+                        }
+                        if ($numrows < 1) {
+                            $content = "Error Database Failure!";
+                                echo($content);
+                        }
+                    }
+                    echo("Page order <br />The following page orders are taken: Do not duplicate, unless of course it already has an order<br />");
+                    if(isset($_GET['exception'])){
+                        $exception = $_GET['exception'];
+                        $result=mysql_query("SELECT * FROM `exeptions` ORDER BY order_id");
+                        $numrows = mysql_num_rows($result);
+                        if ($numrows >= 1) {
+                            $i=0;
+                            while($row=mysql_fetch_array($result) ){
+                                $order_id  = $row['order_id'];
+                                echo($order_id);
+                                $i++;
+                            }
+                        }
+                        if ($numrows < 1) {
+                            $content = "Error Database Failure!";
+                             echo($content);
+                        }
+                    }
+
+                    echo("<br /><input type='text' name='title' value='");
+                    if(isset($_GET['exception'])){
+                        $exception = $_GET['exception'];
+                        $result=mysql_query("SELECT * FROM `exeptions` WHERE `exception` = '$exception'");
+                        $numrows = mysql_num_rows($result);
+                        if ($numrows >= 1) {
+                            $i=0;
+                            while($row=mysql_fetch_array($result) ){
+								$order_id = $row['order_id'];
+								echo($order_id);
+								$i++;
+                            }
+                        }
+                        if ($numrows < 1) {
+                            $content = "Error Database Failure!";
+                            echo($content);
+                        }
+                    }
+                    echo("' style='width:500px; height:30px; font-size:18px;' /><br /><br />");
+                    echo("
+						<br /><br /><br />
+					");
+					if (checkAdmin()) {
+                        echo("
+					        <input type='submit' name='save' value='Submit' />
+					        <input type='reset' name='reset' value='Reset' />
+				            </form>
+			                ");
+                        }
+                    else{
+						echo("The Demo user is unable to modify content.");
+                    }
+
+				}
+				if(checkeditor() == "tinymce"){
+                    if(isset($_GET['exception'])){
+                        $exception = $_GET['exception'];
+                        $result=mysql_query("SELECT * FROM `$table` ORDER BY id DESC LIMIT 5");
+                        $numrows = mysql_num_rows($result);
+                        if ($numrows >= 1) {
+                            $i=0;
+							$x=1;
+                            while($row=mysql_fetch_array($result) ){
+							    $title = $row['title'];
+							    $content = $row['content'];
+							    $author  = $row['author'];
+							    $date = date("m/d/y"); 
+							    echo("<form> Post Title<br /><input style='width:500px; height:30px; font-size:18px;' type='text' name='title' value='$title' /><br /><br />");
+							    echo("Post Content: <textarea id='elm$x' name='' rows='15' cols='80'>$content</textarea><br /><br />");
+							    echo("Author: <br /><input style='width:500px; height:30px; font-size:18px;' type='text' name='author' value='$author' /><br /><br />");
+							    echo("Last Updated: <br /><input READONLY style='width:500px; height:30px; font-size:18px;' type='text' name='date' value='$date' /><br /><br />");
+					            if (checkAdmin()) {
+									echo("
+										<input type='submit' name='save' value='Submit' />
+										<input type='reset' name='reset' value='Reset' />
+										</form>
+									");
+                                }
+                                else{
+									echo("The Demo user is unable to modify content.");
+                                }	
+								echo("</form><br /><br /><br />");						
+               					$x++;
+                                $i++;
+                            }
+                         }
+                    if ($numrows < 1) {
+                        $content = "Error Database Failure!";
+                        echo($content);
+                    }
+                }
+				echo("<br /> <h3 class='titlehdr'>Whole page Settings</h3>
+					Page url (for example yoursite.com/.en-GB/ then the url is meetings/office)<br />
+					<input type='text' name='exception'  value='
+				");
+                if(isset($_GET['exception'])){
+                    $exception = $_GET['exception'];
+                    $result=mysql_query("SELECT * FROM `exeptions` WHERE `exception` = '$exception'");
+                    $numrows = mysql_num_rows($result);
+                    if ($numrows >= 1) {
+                        $i=0;
+                        while($row=mysql_fetch_array($result) ){
+                            $exception = $row['exception'];
+                            echo($exception);
+                            $i++;
+                        }
+                    }
+                    if ($numrows < 1) {
+                        $content = "Error Database Failure!";
+                        echo($content);
+                    }
+                }
+                echo("
+					' /><br /><br />
+					Is page in the Menu?<br />
+				");
+                if(isset($_GET['exception'])){
+                    $exception = $_GET['exception'];
+                    $result=mysql_query("SELECT * FROM `exeptions` WHERE `exception` = '$exception'");
+                    $numrows = mysql_num_rows($result);
+                    if ($numrows >= 1) {
+                        $i=0;
+                        while($row=mysql_fetch_array($result) ){
+                            $menu_item  = $row['menu_item'];
+                            if($menu_item == "yes"){
+                                echo("
+									<select name='menu_item'>
+										<option>yes</option>
+	                                    <option>no</option>
+                                    </select><br /><br />
+                                ");
+                            }
+                            if($menu_item == "no"){
+                                echo("
+                                    <select name='menu_item'>
+										<option>no</option>
+	                                    <option>yes</option>
+                                        </select><br /><br />
+                                ");
+                            }
+                            $i++;
+                        }
+                    }
+                    if ($numrows < 1) {
+						$content = "Error Database Failure!";
+						echo($content);
+                    }
+                }
+                echo("Page order <br />The following page orders are taken: Do not duplicate<br />");
+                if(isset($_GET['exception'])){
+                    $exception = $_GET['exception'];
+                    $result=mysql_query("SELECT * FROM `exeptions` ORDER BY order_id");
+                    $numrows = mysql_num_rows($result);
+                    if ($numrows >= 1) {
+                        $i=0;
+                        while($row=mysql_fetch_array($result) ){
+                            $order_id  = $row['order_id'];
+                            echo($order_id);
+                            $i++;
+                        }
+                    }
+                    if ($numrows < 1) {
+                        $content = "Error Database Failure!";
+                        echo($content);
+                    }
+                }
+				echo("<br /><input type='text' name='title' value='");
+                if(isset($_GET['exception'])){
+                    $exception = $_GET['exception'];
+                    $result=mysql_query("SELECT * FROM `exeptions` WHERE `exception` = '$exception'");
+                    $numrows = mysql_num_rows($result);
+                    if ($numrows >= 1) {
+                        $i=0;
+                        while($row=mysql_fetch_array($result) ){
+                            $order_id = $row['order_id'];
+                                echo($order_id);
+                                $i++;
+                        }
+                    }
+                    if ($numrows < 1) {
+                            $content = "Error Database Failure!";
+                            echo($content);
+                    }
+                }
+                echo("' style='width:500px; height:30px; font-size:18px;' /><br /><br />");
+                echo("
+					<br /><br /><br />
+				");
+				if (checkAdmin()) {
+					echo("
+						<input type='submit' name='save' value='Submit' />
+						<input type='reset' name='reset' value='Reset' />
+						</form>
+					");
+                }
+                 else{
+                 echo("The Demo user is unable to modify content.");
+				}
+	}
+}
+?>
+
+<?php
+	if($_GET['update'] == "blog"){
+		 if (checkAdmin()) {
+		 	echo("Blog type entry updated with id of " . $_GET['id'] . ". ");
+		 }
+	}
+?>

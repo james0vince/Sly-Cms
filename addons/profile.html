@@ -1,0 +1,48 @@
+<?php	
+
+function get_profile(){
+		$url = $_SERVER['REQUEST_URI'];
+		$username = substr($url, 15);
+		$result=mysql_query("SELECT * FROM `sly_cms_users` WHERE username = '$username'");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$username = $row['username'];
+				$bio = $row['bio'];
+				$pic = $row['pic'];
+				$website = $row['website'];
+				$name = $row['name'];
+				echo("<h3>User: $username</h3>");
+				echo("<div style='padding-left:30px;'><table border='0' width='540' height='99'>
+						<tbody>
+							<tr>
+								<td style='text-align: right;' rowspan='2'><img src='$pic' width='100px' height='133.5px' /></td>
+								<td colspan='2' style='vertical-align:text-top; padding:20px;'>$bio</td>
+							</tr>
+							<tr>
+								<!--<td>3</td>-->
+								
+							</tr>
+							<tr>
+								<td style='text-align: right;'>Name</td>
+								<td>&nbsp;James Vince</td>
+							</tr>
+							<tr>
+								<td style='text-align: right;'>Website</td>
+								<td><a target='_blank' href='$website'>$website</a></td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+				");
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}
+
+?>

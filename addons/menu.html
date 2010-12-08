@@ -1,0 +1,22 @@
+<?php
+	function show_global_menu(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `exeptions` WHERE menu_item = 'yes' ORDER by order_id");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$domain = $_SERVER['HTTP_HOST'];
+                                $url = $_SERVER['REQUEST_URI'];
+                                $urltrunked = substr($url, 0, 15);
+				$locale = $urltrunked;
+				echo("<a href='http://$domain/pages/" . $row['link'] . "'><li>" . $row['text'] . "</li></a>");
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}
+?>

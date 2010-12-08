@@ -1,0 +1,45 @@
+<?php include('./config/connection.htm');?>
+<?php
+	ini_set("display_errors", 0);
+	$uri = $_SERVER['REQUEST_URI'];
+	$host = $_SERVER['HTTP_HOST'];
+function get_file(){
+		$url = $_SERVER['REQUEST_URI'];
+		$result=mysql_query("SELECT * FROM `exeptions` WHERE exception = '$url'");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			$i=0;
+			while($row=mysql_fetch_array($result) ){
+				$title = $row['title'];
+				$content = $row['main_content'];
+				$return_url = $row['return_url'];
+				echo("<head><title>$title</title></head><body>");
+				echo("$title &nbsp;&nbsp;&nbsp;&nbsp;<a href='$return_url'>Go back</a><br /><br />");
+				echo("$content</body>");
+				$i++;
+			}
+		}
+		if ($numrows < 1) {
+			$content = "No Content found for this address.";
+			return $content;
+		}
+	}	
+	$uri = $_SERVER['REQUEST_URI'];
+	$result=mysql_query("SELECT * FROM `exeptions` WHERE exception = '$uri'");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+			while($row=mysql_fetch_array($result) ){
+				$mode = $row['mode'];
+				if($mode == "file"){
+					get_file();
+				}
+			}  
+		}
+		if ($numrows < 1) {
+			//echo("<meta http-equiv='refresh' content='0;url=http://hackfodder.co.uk/sly_cms/pages/404' />");
+			echo("File not in database!");
+		}
+
+	
+?>
+
