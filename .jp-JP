@@ -1,0 +1,16 @@
+<?php include('./config/config.htm');?>
+<?php
+	ini_set("display_errors", 0);
+	$uri = $_SERVER['REQUEST_URI'];
+	$host = $_SERVER['HTTP_HOST'];
+	$in_testing_mode = "yes";  // Make this no if your not in development mode!
+	if($in_testing_mode == "no"){
+		echo("$uri");
+	}
+        //if this is default un comment this
+	//if ($uri == "/"){
+		//echo("<meta http-equiv='refresh' content='0;url=.jp-JP/' />");
+	//}
+	
+?>
+

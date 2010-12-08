@@ -1,0 +1,21 @@
+<?php include('./config/config.htm');?>
+<?php
+	ini_set("display_errors", 0);
+	$uri = $_SERVER['REQUEST_URI'];
+	$host = $_SERVER['HTTP_HOST'];
+		$result=mysql_query("SELECT * FROM `exeptions` WHERE exception = '$url'");
+		$numrows = mysql_num_rows($result);
+		if ($numrows >= 1) {
+		}
+		if ($numrows < 1) {
+			echo("<meta http-equiv='refresh' content='0;url=http://sly-cms.net/pages/404' />");
+		}
+	$in_testing_mode = "no";  // Make this no if your not in development mode!
+	if($in_testing_mode == "yes"){
+		echo("$uri");
+	}
+	if ($uri == "/"){
+		echo("<meta http-equiv='refresh' content='0;url=pages/' />");
+	}	
+?>
+

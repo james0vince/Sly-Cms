@@ -1,0 +1,12 @@
+addtype application/x-httpd-php .en-GB .ru-RU .images .en .html .php .secure-html  .htm .webservices .jp .it .it-IT .jp-JP .pt-BR
+
+#ErrorDocument 404 http://yourdomain.com/pages/404
+
+DirectoryIndex .en-GB
+
+RewriteEngine On
+RewriteRule ^pages/ .en-GB/
+RewriteRule ^users/ .en-GB/
+RewriteRule ^files/ files.html/
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L] 
