@@ -1,3 +1,13 @@
+Sly Cms is a simple, low footprint and functional cms.
+The install script has not been writen yet, Sly Cms
+as of v 1.1b is still in beta, it is not recomended
+you install Sly Cms on any live server at this stage,
+unless you know what your doing. The stable V 1.2 is due
+to be released early 2011 and will be suitable for 
+live web servers until then Sly Cms is strictly for 
+developer testing.
+
+
 Sly Cms is licensed under the GNU free software licence.
 You may do whatever you wish with Sly Cms Community-
 edition except make profit from it. You must extend the
